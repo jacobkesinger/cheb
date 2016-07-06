@@ -31,7 +31,6 @@ namespace cheb {
       // x : i/(1.0 * density)
       const double x = 1 - 2.0*(density - i) /( density);
       const double t = degree * std::acos(x);
-      std::cout << i << " " << x << " " << t << " " << std::cos(t) << std::endl;
       out.push_back(std::cos(t));
     }
     coeffCache[key] = out;

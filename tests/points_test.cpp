@@ -26,6 +26,5 @@ TEST(coeffs, quadratic) {
     const double x = i * 0.2 - 1;
     const double t2x = 2*x*x-1;
     EXPECT_NEAR(t2x, coeffs.at(i), 1e-10);
-    std::cout << i << " " << x << " " << t2x << " " << coeffs.at(i) << std::endl;
   }
 }

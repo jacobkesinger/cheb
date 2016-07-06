@@ -6,8 +6,8 @@ TEST(points, basic) {
     const auto ptx = cheb::chebpoints(i);
     EXPECT_EQ(ptx.size(), i+1);
     for(const auto& pt : ptx) {
-      EXPECT_GE(pt, 0.0);
-      EXPECT_LE(pt, 1.0);
+      EXPECT_GE(pt, -1.0);
+      EXPECT_LE(pt,  1.0);
     }
   }
 }

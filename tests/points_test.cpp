@@ -33,11 +33,17 @@ TEST(coeffs, quadratic) {
 TEST(approx, constant) {
   auto fx = [](double x){ return 1.0;};
   const cheb::Points out = cheb::approximate(fx);
-  EXPECT_EQ(out.size(), 17);
-  const cheb::Points coeffs = cheb::chebpoints(16);
-  for(size_t i=0; i < out.size(); i++) {
-    std::cout << i << " " << coeffs.at(i) << " " << out.at(i) << std::endl;
-  }
+  EXPECT_EQ(out.size(), 1);
+
+  auto fxx = [](double x)  { return x*x-2*x+1;};
+  const cheb::Points out1 = cheb::approximate(fxx);
+  EXPECT_EQ(out1.size(), 3);
+  
+  // EXPECT_EQ(out.size(), 17);
+  // const cheb::Points coeffs = cheb::chebpoints(16);
+  // for(size_t i=0; i < out.size(); i++) {
+  //   std::cout << i << " " << coeffs.at(i) << " " << out.at(i) << std::endl;
+  // }
 }
 
 
@@ -83,7 +89,7 @@ TEST(eval, lowdeg) {
   auto t0 = [](double x){ return 1.0;};
   auto t1 = [](double x){ return x;};
   auto t2 = [](double x){ return 2*x*x-1;};
-  auto fx = [](double x){ return x*x-2*x+1;};
+
   auto P0 = cheb::evaluate(t0, 1);
   EXPECT_EQ(P0.size(), 1);
   for(const auto ptx : P0) {
@@ -128,7 +134,5 @@ TEST(eval, lowdeg) {
     for(size_t i=0; i <= density/2; i++) {
       EXPECT_NEAR(p2.at(i), p2.at(density - 1 -i), 1e-10);
     }
-
-
   }
 }

@@ -78,19 +78,28 @@ namespace cheb {
     size_t start{10};
     Points fx = evaluate(f, start);
     Points out;
-    
+    size_t lastNonZero{0};
     for(size_t i=0; i <= start; i++) {
       // take dot product of fx and chebcoeffs
       const Points& localPoints = chebcoeffs(i, start);
       double sum{0.0};
       for(size_t j=0; j < fx.size(); j++) {
-	std::cout << i << " " << j << " "
-		  << fx.at(j) << " " << localPoints.at(j) << " " << sum << std::endl;
 	sum += fx.at(j) * localPoints.at(j);
       }
-      std::cout << "SUM : " << sum << std::endl;
+      if (std::abs(sum) < 1e-12) {
+	sum = 0;
+      } else {
+	if (i) {
+	  sum *= 2.0/start;
+	} else {
+	  sum /= start;
+	}
+	lastNonZero = i;
+      }
       out.push_back(sum);
     }
-    return out;
+    Points nonzero(out.begin(), out.begin()+lastNonZero+1);
+    return nonzero;
+
   }
 }
